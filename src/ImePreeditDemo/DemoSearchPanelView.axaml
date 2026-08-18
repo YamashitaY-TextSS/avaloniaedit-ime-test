@@ -1,0 +1,47 @@
+<!-- Ctrl+F search panel, modelled on the one TextSS uses.
+     The important property for this demo is that this panel is hosted in the Window's OverlayLayer
+     (see DemoSearchPanelOverlayHost), so it is NOT a visual descendant of the TextArea. AvaloniaEdit's
+     built-in SearchPanel is not used. See the "input method client hijacking" section of the README:
+     a search box that IS a descendant of the TextArea has its input method client taken over by the
+     TextArea class handler, which sends the preedit to the editor instead of the search box. -->
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ImePreeditDemo.DemoSearchPanelView">
+  <Border Padding="4"
+          Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+          BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}"
+          BorderThickness="1" CornerRadius="3">
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Spacing="3">
+      <!-- Drag grip. A Thumb keeps the mouse capture, so dragging continues outside the panel. -->
+      <Thumb Name="PART_DragThumb"
+             MinWidth="14" MinHeight="26"
+             Cursor="SizeAll" IsTabStop="False"
+             Background="Transparent">
+        <Thumb.Template>
+          <ControlTemplate>
+            <Border Background="Transparent" Padding="2">
+              <Path VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Fill="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                    Data="M0,0 H2 V2 H0 Z M4,0 H6 V2 H4 Z M0,4 H2 V6 H0 Z M4,4 H6 V6 H4 Z M0,8 H2 V10 H0 Z M4,8 H6 V10 H4 Z"/>
+            </Border>
+          </ControlTemplate>
+        </Thumb.Template>
+      </Thumb>
+      <TextBox Name="PART_SearchBox"
+               MinWidth="150" MinHeight="26"
+               FontSize="12"
+               VerticalContentAlignment="Center"
+               PlaceholderText="Find"/>
+      <TextBlock Name="PART_SearchCount"
+                 MinWidth="56" FontSize="12"
+                 VerticalAlignment="Center" TextAlignment="Center"
+                 Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+      <Button Name="PART_SearchPrev" Content="&#x2191;" MinWidth="30" MinHeight="26" Padding="2"/>
+      <Button Name="PART_SearchNext" Content="&#x2193;" MinWidth="30" MinHeight="26" Padding="2"/>
+      <ToggleButton Name="PART_SearchMatchCase" Content="Aa" MinWidth="32" MinHeight="26" Padding="2"/>
+      <ToggleButton Name="PART_SearchWholeWord" Content="ab" MinWidth="32" MinHeight="26" Padding="2"/>
+      <ToggleButton Name="PART_SearchRegex" Content=".*" MinWidth="32" MinHeight="26" Padding="2"/>
+      <Button Name="PART_SearchClose" Content="&#x2715;" MinWidth="30" MinHeight="26" Padding="2"/>
+    </StackPanel>
+  </Border>
+</UserControl>

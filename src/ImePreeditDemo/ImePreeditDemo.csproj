@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- AvaloniaEdit IME preedit verification demo (Windows / macOS / Linux).
+       ==========================================================================================
+       Purpose : exercise the IME preedit rendering of the AvaloniaEdit fork in ../AvaloniaEdit on all
+                 three desktop platforms, on top of the same marker machinery TextSS uses
+                 (line-ending markers, full-width space, half-width space / tab, marker colouring),
+                 because those markers are what made the missing preedit painful in the first place.
+       Avalonia is pinned to 12.1.1, the same version the fork is built against.
+       ========================================================================================== -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <Version>0.1.0</Version>
+    <RootNamespace>ImePreeditDemo</RootNamespace>
+    <AssemblyName>ImePreeditDemo</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.1.1" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.1" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaloniaEdit\AvaloniaEdit.csproj" />
+  </ItemGroup>
+
+  <!-- Embedded font, used as the default family on Linux (see Program.cs). Without it the demo aborts at
+       startup on some Linux setups while resolving $Default.
+       Noto Sans JP is licensed under the SIL Open Font License 1.1 - see THIRD-PARTY-NOTICES.md. -->
+  <ItemGroup>
+    <AvaloniaResource Include="Assets/Fonts/NotoSansJP-VF.ttf"
+                      Link="Assets/Fonts/NotoSansJP-VF.ttf" />
+  </ItemGroup>
+</Project>

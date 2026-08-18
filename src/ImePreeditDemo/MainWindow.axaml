@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ae="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+        x:Class="ImePreeditDemo.MainWindow"
+        Title="AvaloniaEdit IME preedit demo (PR #592 preedit + extra fixes)"
+        Width="1000" Height="720"
+        WindowStartupLocation="CenterScreen">
+  <DockPanel Margin="8">
+
+    <!-- Controls -->
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+      <ToggleButton x:Name="ThemeToggle" Content="Dark theme" IsCheckedChanged="OnThemeToggled"/>
+      <Button x:Name="FontMinusButton" Content="Font -" Click="OnFontMinus"/>
+      <Button x:Name="FontPlusButton" Content="Font +" Click="OnFontPlus"/>
+      <CheckBox x:Name="WrapCheck" Content="Word wrap" IsCheckedChanged="OnWrapChanged"/>
+      <CheckBox x:Name="LineNumberCheck" Content="Line numbers" IsChecked="True" IsCheckedChanged="OnLineNumberChanged"/>
+      <CheckBox x:Name="RulerCheck" Content="Column ruler" IsChecked="True" IsCheckedChanged="OnRulerChanged"/>
+      <CheckBox x:Name="CurrentRowCheck" Content="Highlight current line" IsChecked="True" IsCheckedChanged="OnCurrentRowChanged"/>
+      <CheckBox x:Name="MarkerCheck" Content="Markers" IsChecked="True" IsCheckedChanged="OnMarkerChanged"/>
+      <Button x:Name="MarkerColorButton" Content="Marker colour: green" Click="OnMarkerColorCycle"/>
+      <Button x:Name="ReannotateButton" Content="Re-apply markers" Click="OnReannotate"/>
+      <Button x:Name="SearchButton" Content="Search panel (Ctrl+F)" Click="OnOpenSearch"/>
+    </StackPanel>
+
+    <!-- A plain TextBox for comparison. Avalonia's TextBox already supports preedit, so whatever it does
+         here is the behaviour the editor above is expected to match. -->
+    <StackPanel DockPanel.Dock="Bottom" Spacing="4" Margin="0,8,0,0">
+      <TextBlock Text="Plain TextBox for comparison (preedit works here out of the box):"/>
+      <TextBox x:Name="CompareBox" AcceptsReturn="True" Height="52"
+               PlaceholderText="Type Japanese here to compare, e.g. きょうはいいてんきですね"/>
+      <TextBlock x:Name="StatusText" Text="Ln 1, Col 1 (offset 0)" Opacity="0.8"/>
+    </StackPanel>
+
+    <!-- The subject under test: the patched AvaloniaEdit fork.
+         The column ruler is created in code and placed into RulerHost, because it needs a reference to the
+         TextEditor to align itself (see DemoColumnRuler.cs). -->
+    <Border BorderThickness="1" BorderBrush="{DynamicResource SystemControlForegroundBaseMediumLowBrush}">
+      <DockPanel>
+        <Panel x:Name="RulerHost" DockPanel.Dock="Top"/>
+        <ae:TextEditor x:Name="Editor"
+                       FontSize="14"
+                       ShowLineNumbers="True"
+                       HorizontalScrollBarVisibility="Auto"
+                       VerticalScrollBarVisibility="Auto"/>
+      </DockPanel>
+    </Border>
+  </DockPanel>
+</Window>

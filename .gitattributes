@@ -1,0 +1,6 @@
+# Keep LF in the repository for everything text, so run-demo.sh works on macOS and Linux
+# even when the repository is cloned on Windows.
+* text=auto eol=lf
+
+*.png binary
+*.ttf binary

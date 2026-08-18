@@ -1,0 +1,68 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- AvaloniaEdit fork used by the IME preedit verification demo.
+       ==========================================================================================
+       Origin : AvaloniaEdit master be976ea
+                + the preedit part of the unmerged PR #592 by @Timskt
+                  (https://github.com/AvaloniaUI/AvaloniaEdit/pull/592)
+                + 5 additional changes made while verifying #592 with Japanese IME.
+
+       Only 4 source files differ from upstream (every other .cs/.xaml/.xshd/.resx is untouched):
+         1. Editing/TextArea.cs       : PR #592 preedit wiring
+                                        + commit-on-click for Issue #534
+                                        + re-scroll after a long commit
+         2. Rendering/PreeditLayer.cs : added by PR #592
+                                        + wrap the preedit to the next line at the right edge
+                                        + align the preedit to the text baseline of the caret line
+         3. Rendering/TextView.cs     : extra horizontal scroll room past the end of a line
+                                        + cap the space below the last line to 3 lines
+         4. Editing/Caret.cs          : extra room to the right of the caret in BringCaretToView
+
+       Search for "TEXTSS-ADD" in those files to find every added block.
+
+       csproj differences from upstream:
+         1. TargetFrameworks net8.0;net10.0 -> net10.0 only
+         2. <Version>12.0.0-preedit</Version> so the assembly identifies itself as a fork
+         3. Avalonia PackageReference pinned to 12.1.1 (upstream uses central package management,
+            which is not present in this snapshot)
+         4. AssemblyName/RootNamespace kept as AvaloniaEdit so the output is a drop-in
+            AvaloniaEdit.dll
+         5. Not strong-named (upstream NuGet is). Consequence: the NuGet package
+            AvaloniaEdit.TextMate cannot be used together with this fork (CS0012).
+       ========================================================================================== -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <WarningsNotAsErrors>0612,0618</WarningsNotAsErrors>
+    <Version>12.0.0-preedit</Version>
+    <AssemblyName>AvaloniaEdit</AssemblyName>
+    <RootNamespace>AvaloniaEdit</RootNamespace>
+    <PackageId>Avalonia.AvaloniaEdit</PackageId>
+    <PackageDescription>This project is a port of AvalonEdit, a WPF-based text editor for Avalonia.</PackageDescription>
+    <PackageTags>editor;code-editor;avalonia;text-editor;netstandard</PackageTags>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="**\*.xshd;**\*.resx;" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+    <AvaloniaResource Include="**\*.xaml;Assets\*;" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="SR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SR.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="SR.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

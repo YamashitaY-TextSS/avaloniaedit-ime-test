@@ -136,7 +136,7 @@ bash run-demo.sh
 * PR [#592](https://github.com/AvaloniaUI/AvaloniaEdit/pull/592) — Support Chinese IME preedit and fix related bugs
 
 経緯は TextSS の移植開発記に日本語で書いています:
-<https://textss.sakura.ne.jp/devlog.html>
+<https://textss.sakura.ne.jp/devlog11-avaloniaedit.html>
 
 ## ライセンス
 

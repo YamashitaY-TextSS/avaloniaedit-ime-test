@@ -143,7 +143,7 @@ Type Japanese (or Chinese, or Korean) into the editor and watch the composition 
 `TextBox` at the bottom is there for comparison: preedit works in it out of the box, so it shows what
 the editor is expected to match. The sample text in the editor lists nine numbered checks.
 
-The editor is deliberately set up the way [TextSS](https://textss.sakura.ne.jp/) sets it up: line
+The editor is deliberately set up the way [TextSS](https://textss.sakura.ne.jp/en/) sets it up: line
 endings, full-width spaces and tabs are shown as visible marker characters, because that is the
 context in which these problems were found, and markers and composition text have to coexist.
 
@@ -172,8 +172,8 @@ of which can be worked around from outside the process.
 * PR [#591](https://github.com/AvaloniaUI/AvaloniaEdit/pull/591) — Fix IME client incorrectly handling child control events
 * PR [#592](https://github.com/AvaloniaUI/AvaloniaEdit/pull/592) — Support Chinese IME preedit and fix related bugs
 
-The work is written up in Japanese in the TextSS development log:
-<https://textss.sakura.ne.jp/devlog.html>
+The work is written up in English in the TextSS development log:
+<https://textss.sakura.ne.jp/en/devlog11-avaloniaedit.html>
 
 ## Licence
 
